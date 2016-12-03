@@ -430,7 +430,7 @@
 				DEVELOPMENT_TEAM = HQCKDM42WD;
 				INFOPLIST_FILE = CIProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.geasscode.CIProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.geass.CIProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -442,7 +442,7 @@
 				DEVELOPMENT_TEAM = HQCKDM42WD;
 				INFOPLIST_FILE = CIProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.geasscode.CIProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.geass.CIProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
