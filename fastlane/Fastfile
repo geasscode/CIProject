@@ -57,11 +57,11 @@ platform :ios do
     #   app_identifier: "com.nextxnow.kuduroutines"
     # )
      match(
-      git_url : https://github.com/geasscode/CIProject.git
+      git_url: "https://github.com/geasscode/CIProject.git",
       app_identifier: "com.geass.CIProject",
-      username "geasscode@outlook.com",
-      type: "adhoc",git_branch:"dev",
-      git_branch: "dev"
+      username:"geasscode@outlook.com",
+      type: "adhoc",
+      git_branch:"dev",
       )
     # cert(development: true,username: ENV["FASTLANE_USER"],keychain_password: ENV["FASTLANE_PASSWORD"])
 
