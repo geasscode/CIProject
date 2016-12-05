@@ -132,7 +132,7 @@ platform :ios do
   after_all do |lane|
 # 由于修改了版本号，所以需要将代码Commit和Push一下
   # Make sure our directory is clean, except for changes Fastlane has made
-   clean_build_artifacts
+   # clean_build_artifacts
     # git_commit(path: ["./version.txt", "./changelog.txt"], message: "Version Bump")
  # Increment build number to current date
 
