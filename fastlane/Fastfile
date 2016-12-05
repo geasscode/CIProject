@@ -17,14 +17,48 @@ default_platform :ios
 
 platform :ios do
   before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+ ensure_git_status_clean
+ ensure_git_branch(
+  branch: 'dev'
+)
 
+
+   #执行此句增加最小的单位，0.7.0 会变成0.7.1 对于cordova 项目一般不需要，因为执行gulp build  自动生成已经配置的项目了。
+   # increment_version_number
+  #  increment_version_number(
+  #    bump_type: "patch" # Automatically increment patch version number
+  # )
+  #  increment_version_number(
+  # bump_type: "minor" # Automatically increment minor version number
+  # )
+  #  increment_version_number(
+  # bump_type: "major" # Automatically increment major version number
+  # )
+  #  increment_version_number(
+  # version_number: "2.1.1" # Set a specific version number
+  # )
+
+# appium 很好玩的功能待研究
+  # appium(
+  # app_path:  "appium/apps/TargetApp.app",
+  # spec_path: "appium/spec",
+  # platform:  "iOS",
+  # caps: {
+  #   versionNumber: "9.1",
+  #   deviceName:    "iPhone 6"
+  # }
+  # )
 
   end
 
   desc "Runs all the tests"
   lane :test do
-    scan
+    #执行scan 会自动安装app 到模拟器，运行Xcode 的测试项目 并生成JUnit 报告。
+    # scan
+     # ensure_git_status_clean
+  #  increment_version_number(
+  #    bump_type: "patch" # Automatically increment patch version number
+  # )
   end
 
   desc "Submit a new Beta Build to Apple TestFlight"
@@ -44,25 +78,12 @@ platform :ios do
 #     fastlane buildIPA project:GMUtil version:0.1.4
 
 
-# identifier = get_info_plist_value(path: "./Info.plist", key: "CFBundleIdentifier")
+    #不推荐用cert 以及sigh ，苹果服务器会返回 错误。
+    #不需要将git_url 换成证书路径，因为会提示没有权限，只要设了.git 系统自动会it clone 证书
+    #企业版或者appstore 版 ，需要将type  换成 enterprise 和 appstore 当然只自己用的话可以换成development
 
-    #development
-
-    # Download the provisioning profile for the app
-    # sigh(output_path: "./fastlane/profiles") # Distribution Profile
-
-    # Download the provisioning profile
-    # sigh(
-    #   output_path: "./fastlane/profiles",
-    #   app_identifier: "com.nextxnow.kuduroutines"
-    # )
-    #测试已经生成证书是否可以直接加载
-    #已测试直接指向证书文件夹会提示没有权限，切换成原来的git 路径试试。
-
-      # git_url: "https://github.com/geasscode/CIProject/tree/dev/certs/distribution",
      match(
       git_url: "https://github.com/geasscode/CIProject.git",
-      # git_url: "https://github.com/geasscode/CIProject/tree/dev/certs/distribution",
       app_identifier: "com.geass.CIProject",
       username:"geasscode@outlook.com",
       type: "adhoc",
@@ -72,16 +93,7 @@ platform :ios do
       force:false,
       readonly:true
       )
-    # cert(development: true,username: ENV["FASTLANE_USER"],keychain_password: ENV["FASTLANE_PASSWORD"])
 
-    #   sigh(
-    #   adhoc: true,
-    #   force: true,
-    #   #username: ENV["FASTLANE_USER"],
-    #   app_identifier:"com.geass.CITest",
-
-    # )
-    # Helper.log.info "Updategit_url "https://github.com/geasscode/CITest.git"
     build_name = "CIProject_v#{get_version_number}"
 
     gym(
@@ -95,8 +107,11 @@ platform :ios do
       # export_method:"ad-hoc,enterprise,appstore,development"
       # include_symbols: true,
       # sdk: "iphoneos10.1",
+      # export_method:"ad-hoc,enterprise,appstore,development"
+
       export_method:"ad-hoc",
-      use_legacy_build_api: true
+      #使用match 下载好的证书千万不要再用 use_legacy_build_api 否则生成的ipa 打开会crash，google都没用。只能靠自己解决。
+      #use_legacy_build_api: true
       )
   end
 
@@ -115,19 +130,102 @@ platform :ios do
   # You can define as many lanes as you want
 
   after_all do |lane|
-    # This block is called, only if the executed lane was successful
+# 由于修改了版本号，所以需要将代码Commit和Push一下
+  # Make sure our directory is clean, except for changes Fastlane has made
+   clean_build_artifacts
+    # git_commit(path: ["./version.txt", "./changelog.txt"], message: "Version Bump")
+ # Increment build number to current date
+  build_number = Time.new.strftime("%Y.%m.%d")
 
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
+  increment_build_number(
+    build_number: build_number
+  )
+
+  commit_version_bump message: "Deploying version #{get_version_number}."
+
+    # git_commit(message: "Version Bump")
+
+
+    push_to_git_remote(
+  remote: "origin",         # optional, default: "origin"
+  local_branch: "dev",  # optional, aliased by "branch", default: "master"
+  remote_branch: "dev", # optional, default is set to local_branch
+  force: true,    # optional, default: false
+  tags: false     # optional, default: true
+  )
+   ship_it
+
+   notification(subtitle: "Finished Building", message: "Ready to upload...")
+
   end
 
   error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
+      notification(subtitle: "errored", message: "Fastlane '#{lane}' errored")
+
   end
+end
+
+
+def change_log_since_last_tag
+    # http://git-scm.com/docs/pretty-formats
+    # <short hash> <commit title>
+    return changelog_from_git_commits(pretty: '%h %s')
+end
+
+def next_version
+  Time.now.strftime("%Y%m%d%H%M")
+end
+
+def get_DisplayName
+  `/usr/libexec/PlistBuddy -c 'Print CFBundleDisplayName' ../CIProject/Info.plist`.strip
+end
+
+def compare_url
+  last_bump_hash = sh("git log --pretty=format:'%s %h' | grep -i '^version bump [0-9]\\{12\\}\\b' | awk '{print $NF}' | head -n1").strip
+  current_hash = sh("git rev-parse HEAD").strip
+
+  "https://github.com/timehop/TimehopThree-iOS/compare/#{last_bump_hash}...#{current_hash}"
+end
+
+ def tag_name(build_type, version_number, build_number)
+    "#{build_type}/#{version_number}/#{build_number}"
+end
+
+
+def ship_it
+  rand = Random.rand(0..1)
+  if rand == 0
+    squirrel
+  elsif rand == 1
+    boat
+  end
+end
+
+def squirrel
+  puts "
+    !!!!
+  !!!!!!!!
+!!!!!!!!!!!   O_O
+!!!  !!!!!!! /@ @\\
+      !!!!!! \\ x /
+      !!!!!!/ m  !m
+       !!!!/ __  |
+       !!!!|/  \\__
+        !!!\\______\\
+  "
+end
+
+def boat
+  puts "
+     .  o ..
+     o . o o.o
+          ...oo
+            __[]__
+         __|_o_o_o\__
+         \\\"\"\"\"\"\"\"\"\"\"/
+          \\. ..  . /
+     ^^^^^^^^^^^^^^^^^^^^
+  "
 end
 
 
