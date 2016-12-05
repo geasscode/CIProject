@@ -17,7 +17,7 @@ default_platform :ios
 
 platform :ios do
   before_all do
- ensure_git_status_clean
+ # ensure_git_status_clean
  ensure_git_branch(
   branch: 'dev'
 )
@@ -141,7 +141,8 @@ platform :ios do
     build_number: build_number
   )
 
-  commit_version_bump message: "Deploying version #{get_version_number}."
+    sh("git commit -a -m 'Deploying version #{get_version_number}'").strip
+  # commit_version_bump message: "Deploying version #{get_version_number}."
 
     # git_commit(message: "Version Bump")
 
