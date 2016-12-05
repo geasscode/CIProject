@@ -17,7 +17,10 @@ default_platform :ios
 
 platform :ios do
   before_all do
- # ensure_git_status_clean
+#这个会清除ipa 包以及dysm.zip文件 看你怎么用了。
+ # clean_build_artifacts
+
+ ensure_git_status_clean
  ensure_git_branch(
   branch: 'dev'
 )
