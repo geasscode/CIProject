@@ -141,8 +141,8 @@ platform :ios do
     build_number: build_number
   )
 
-    sh("git commit -a -m 'Deploying version #{get_version_number}'").strip
-  # commit_version_bump message: "Deploying version #{get_version_number}."
+    # sh("git commit -a -m 'Deploying version #{get_version_number}'").strip
+  commit_version_bump message: "Deploying version #{get_version_number}."
 
     # git_commit(message: "Version Bump")
 
