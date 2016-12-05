@@ -61,7 +61,7 @@ platform :ios do
 
       # git_url: "https://github.com/geasscode/CIProject/tree/dev/certs/distribution",
      match(
-      git_url: "https://github.zcom/geasscode/CIProject.git",
+      git_url: "https://github.com/geasscode/CIProject.git",
       # git_url: "https://github.com/geasscode/CIProject/tree/dev/certs/distribution",
       app_identifier: "com.geass.CIProject",
       username:"geasscode@outlook.com",
