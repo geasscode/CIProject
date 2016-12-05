@@ -25,9 +25,9 @@ platform :ios do
 
    #执行此句增加最小的单位，0.7.0 会变成0.7.1 对于cordova 项目一般不需要，因为执行gulp build  自动生成已经配置的项目了。
    # increment_version_number
-  #  increment_version_number(
-  #    bump_type: "patch" # Automatically increment patch version number
-  # )
+   increment_version_number(
+     bump_type: "patch" # Automatically increment patch version number
+  )
   #  increment_version_number(
   # bump_type: "minor" # Automatically increment minor version number
   # )
@@ -140,11 +140,12 @@ platform :ios do
     build_number: Time.new.strftime("%Y.%m.%d")
   )
 
-    # sh("git commit -a -m 'Deploying version #{get_version_number}'").strip
+# No file changes picked up. Make sure you run the `increment_build_number` action first.
+    sh("git commit -a -m 'Deploying version #{get_version_number}'").strip
 
-  commit_version_bump(
-   message: "Deploying version #{get_version_number}."
-  )
+  # commit_version_bump(
+  #  message: "Deploying version #{get_version_number}."
+  # )
     # git_commit(message: "Version Bump")
 
 
