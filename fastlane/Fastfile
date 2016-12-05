@@ -160,13 +160,13 @@ platform :ios do
   tags: false     # optional, default: true
   )
    ship_it
-
-   notification(subtitle: "Finished Building", message: "Ready to upload...")
+   #下面注释哪句jekins 会报 FAILED TO establish the default connection to the WindowServer, _CGSDefaultConnection() is NULL。
+   # notification(subtitle: "Finished Building", message: "Ready to upload...")
 
   end
 
   error do |lane, exception|
-      notification(subtitle: "errored", message: "Fastlane '#{lane}' errored")
+      # notification(subtitle: "errored", message: "Fastlane '#{lane}' errored")
 
   end
 end
