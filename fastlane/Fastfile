@@ -56,12 +56,20 @@ platform :ios do
     #   output_path: "./fastlane/profiles",
     #   app_identifier: "com.nextxnow.kuduroutines"
     # )
+
+    # git_url "https://github.com/fastlane/fastlane/tree/master/certificates"
+    #测试已经生成证书是否可以直接加载。
      match(
-      git_url: "https://github.com/geasscode/CIProject.git",
+      # git_url: "https://github.com/geasscode/CIProject.git",
+      git_url: "https://github.com/geasscode/CIProject/tree/dev/certs/distribution",
       app_identifier: "com.geass.CIProject",
       username:"geasscode@outlook.com",
       type: "adhoc",
       git_branch:"dev",
+      skip_docs:true,
+      force_for_new_devices:true,
+      force:false,
+      readonly:true
       )
     # cert(development: true,username: ENV["FASTLANE_USER"],keychain_password: ENV["FASTLANE_PASSWORD"])
 
