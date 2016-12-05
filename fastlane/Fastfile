@@ -56,12 +56,13 @@ platform :ios do
     #   output_path: "./fastlane/profiles",
     #   app_identifier: "com.nextxnow.kuduroutines"
     # )
+    #测试已经生成证书是否可以直接加载
+    #已测试直接指向证书文件夹会提示没有权限，切换成原来的git 路径试试。
 
-    # git_url "https://github.com/fastlane/fastlane/tree/master/certificates"
-    #测试已经生成证书是否可以直接加载。
+      # git_url: "https://github.com/geasscode/CIProject/tree/dev/certs/distribution",
      match(
-      # git_url: "https://github.com/geasscode/CIProject.git",
-      git_url: "https://github.com/geasscode/CIProject/tree/dev/certs/distribution",
+      git_url: "https://github.zcom/geasscode/CIProject.git",
+      # git_url: "https://github.com/geasscode/CIProject/tree/dev/certs/distribution",
       app_identifier: "com.geass.CIProject",
       username:"geasscode@outlook.com",
       type: "adhoc",
