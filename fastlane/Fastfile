@@ -79,7 +79,7 @@ platform :ios do
 
 # 有options 参数 一直不明白options 怎么来的原来需要外面传入。
 #     fastlane buildIPA project:GMUtil version:0.1.4
-
+MATCH_PASSWORD
 
     #不推荐用cert 以及sigh ，苹果服务器会返回 错误。
     #不需要将git_url 换成证书路径，因为会提示没有权限，只要设了.git 系统自动会it clone 证书
