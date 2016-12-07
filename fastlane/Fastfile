@@ -104,7 +104,8 @@ platform :ios do
       include_bitcode: false,
       silent: true,
       clean: true,
-      output_directory: "~/Documents/buildIPA/",
+      output_directory: "../",
+      # output_directory: "~/Documents/buildIPA/",
       output_name: "#{build_name}.ipa",
       # export_method:"ad-hoc,enterprise,appstore,development"
       # include_symbols: true,
