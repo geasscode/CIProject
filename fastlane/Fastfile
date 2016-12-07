@@ -104,8 +104,7 @@ platform :ios do
       include_bitcode: false,
       silent: true,
       clean: true,
-      output_directory: "../",
-      # output_directory: "~/Documents/buildIPA/",
+      output_directory: "~/Documents/buildIPA/",
       output_name: "#{build_name}.ipa",
       # export_method:"ad-hoc,enterprise,appstore,development"
       # include_symbols: true,
@@ -139,6 +138,8 @@ platform :ios do
     # git_commit(path: ["./version.txt", "./changelog.txt"], message: "Version Bump")
  # Increment build number to current date
 
+sh("fir publish ~/Documents/buildIPA/CIProject_v#{get_version_number}.ipa -T b668e48c86ec4baf052b4a37899f4eb2").strip
+
   increment_build_number(
     build_number: Time.new.strftime("%Y.%m.%d")
   )
@@ -159,6 +160,11 @@ platform :ios do
   force: true,    # optional, default: false
   tags: false     # optional, default: true
   )
+
+
+
+
+
    ship_it
    #下面注释哪句jekins 会报 FAILED TO establish the default connection to the WindowServer, _CGSDefaultConnection() is NULL。
    # notification(subtitle: "Finished Building", message: "Ready to upload...")
