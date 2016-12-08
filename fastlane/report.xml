@@ -3,67 +3,77 @@
   <testsuite name="fastlane.lanes">
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.000635">
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.000639">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000366">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000267">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: ensure_git_status_clean" time="0.013246">
+      <testcase classname="fastlane.lanes" name="2: ensure_git_status_clean" time="0.044035">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: ensure_git_branch" time="0.009948">
+      <testcase classname="fastlane.lanes" name="3: ensure_git_branch" time="0.008997">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: increment_version_number" time="1.25514">
+      <testcase classname="fastlane.lanes" name="4: increment_version_number" time="1.274399">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: Switch to ios buildIPA lane" time="0.00036">
+      <testcase classname="fastlane.lanes" name="5: Switch to ios buildIPA lane" time="0.000294">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: match" time="107.909974">
+      <testcase classname="fastlane.lanes" name="6: match" time="79.205947">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="7: get_version_number" time="0.75185">
+      <testcase classname="fastlane.lanes" name="7: get_version_number" time="0.922474">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="8: gym" time="14.638053">
+      <testcase classname="fastlane.lanes" name="8: gym" time="17.670257">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="9: increment_build_number" time="1.403564">
+      <testcase classname="fastlane.lanes" name="9: get_version_number" time="0.853281">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="10: get_version_number" time="0.607611">
+      <testcase classname="fastlane.lanes" name="10: fir publish ~/Documents/buildIPA/CIProject_v1.0.9.ipa -T b668e48c86ec4baf052b4a37899f4eb2" time="8.874976">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="11: commit_version_bump" time="0.393996">
+      <testcase classname="fastlane.lanes" name="11: increment_build_number" time="1.618527">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="12: push_to_git_remote" time="15.165346">
+      <testcase classname="fastlane.lanes" name="12: get_version_number" time="0.736802">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="13: commit_version_bump" time="0.337421">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="14: push_to_git_remote" time="12.61111">
         
       </testcase>
     

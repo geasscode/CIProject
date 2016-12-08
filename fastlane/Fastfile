@@ -98,6 +98,7 @@ platform :ios do
 
     build_name = "CIProject_v#{get_version_number}"
 
+    #export ipa 发生在 get_version_number之前导致 无法获取增加后的版本。
     gym(
       configuration: "Release",
       scheme: "CIProject",
@@ -106,7 +107,6 @@ platform :ios do
       clean: true,
       output_directory: "~/Documents/buildIPA/",
       output_name: "#{build_name}.ipa",
-      # export_method:"ad-hoc,enterprise,appstore,development"
       # include_symbols: true,
       # sdk: "iphoneos10.1",
       # export_method:"ad-hoc,enterprise,appstore,development"
@@ -146,6 +146,8 @@ sh("fir publish ~/Documents/buildIPA/CIProject_v#{get_version_number}.ipa -T b66
 
 # No file changes picked up. Make sure you run the `increment_build_number` action first.
     # sh("git add . && git commit -m 'Deploying version #{get_version_number}'").strip
+    #单个项目文件可以用这个，多个的话用 下面减少commit 出错。
+    #sh("git commit -a -m 'Deploying version #{get_version_number}'").strip
 
   commit_version_bump(
    message: "Deploying version #{get_version_number}."
